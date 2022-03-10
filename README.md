@@ -33,6 +33,7 @@ cp .env.exsample .env
 | INCLUDE_CHANNELS | 対象とするチャンネルを限定する場合はチャンネルIDを指定、複数の場合はコンマ区切り | |
 | EXCLUDE_CHANNELS | 除外したいチャンネルがある場合はチャンネルIDを指定、複数の場合はコンマ区切り | |
 | EXCLUDE_WORDS | 除外したい単語（完全一致）を指定、複数の場合はコンマ区切り | |
+| DEBUG_MODE | 集計のみ行い、チャンネルへの投稿を行わない場合に true を設定 | true |
 
 例えば、FROM_DAYS=8, TO_DAYS=1で8日前から1日前までの投稿を探索対象にできます。
 
