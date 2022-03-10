@@ -57,7 +57,11 @@ export default class EnvService {
         return exclude.split(',').filter(i => i.length > 0)
     }
 
-    private parseInt(str: string | undefined) {
+    public get debugMode(): boolean {
+        return Boolean(process.env.DEBUG_MODE);
+    }
+
+    private parseInt(str: string | undefined): number {
         if (str === undefined) {
             throw new Error()
         }

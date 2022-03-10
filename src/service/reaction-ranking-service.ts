@@ -30,7 +30,7 @@ export default class ReactionRankingService {
         return dt
     }
 
-    public async process(env: EnvService) {
+    public async process(env: EnvService): Promise<void> {
         const now = new Date()
         const from = this.calcFromDate(env.fromDays, now)
         const to = this.calcFromDate(env.toDays, now)
@@ -50,14 +50,16 @@ export default class ReactionRankingService {
         console.log(this.getTimeStamp(), "gathering conversation items...")
         const items = await this.slackService.getTheMostReactedConversations(targetChannels, from, to, env.numFeatures, env.excludeWords)
 
-        console.log(this.getTimeStamp(), `gatherd ${items.length} items`)
+        console.log(this.getTimeStamp(), `gathered ${items.length} items`)
         const links = await this.slackService.getPermLinks(this.slackCalcService.extractTopItems(items, env.numFeatures))
 
         console.log(links)
-        await this.slackService.postFeaturedPosts(env.postChannel, links, from, to)
+        if (!env.debugMode) {
+            await this.slackService.postFeaturedPosts(env.postChannel, links, from, to)
+        }
     }
 
-    private getTimeStamp(){
+    private getTimeStamp(): number {
         return new Date().getTime() / 1000
     }
 }
